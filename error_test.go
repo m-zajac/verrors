@@ -9,16 +9,16 @@ import (
 type errKey string
 
 const (
-	invalidRequestErrKey errKey = "access"
-	accessErrKey         errKey = "access"
+	temporaryErrKey errKey = "temporary"
+	accessErrKey    errKey = "access"
 )
 
-func NewInvalidRequestError(e error) error {
-	return WithValue(e, invalidRequestErrKey, true)
+func NewTemporaryError(e error) error {
+	return WithValue(e, temporaryErrKey, true)
 }
 
-func InvalidRequest(e error) bool {
-	if v := Value(e, invalidRequestErrKey); v == nil {
+func IsTemporary(e error) bool {
+	if v := Value(e, temporaryErrKey); v == nil {
 		return false
 	}
 
@@ -29,7 +29,7 @@ func NewAccessError(e error) error {
 	return WithValue(e, accessErrKey, true)
 }
 
-func Forbidden(e error) bool {
+func IsForbidden(e error) bool {
 	if v := Value(e, accessErrKey); v == nil {
 		return false
 	}
@@ -41,15 +41,15 @@ func TestConstructorAndCheckerFunc(t *testing.T) {
 	errMsg := "test error"
 	base := errors.New(errMsg)
 
-	if Forbidden(base) {
-		t.Error("base error is not access error")
+	if IsForbidden(base) {
+		t.Error("IsForbidden should return false on base error")
 	}
 	accErr := NewAccessError(base)
 	if accErr.Error() != errMsg {
 		t.Error("error message changed by NewAccessError")
 	}
-	if !Forbidden(accErr) {
-		t.Error("invalid Forbidden result on access error")
+	if !IsForbidden(accErr) {
+		t.Error("IsForbidden should return true for access error")
 	}
 }
 
@@ -63,18 +63,18 @@ func TestWrapping(t *testing.T) {
 		),
 		"w2",
 	)
-	if !Forbidden(wrappedErr) {
-		t.Error("Forbidden returned invalid result on wrapped access error")
+	if !IsForbidden(wrappedErr) {
+		t.Error("IsForbidden returned invalid result on wrapped access error")
 	}
 
 	wrappedErr = errors.Wrap(
-		NewInvalidRequestError(wrappedErr),
+		NewTemporaryError(wrappedErr),
 		"w3",
 	)
-	if !Forbidden(wrappedErr) {
+	if !IsForbidden(wrappedErr) {
 		t.Error("invalid Forbidden result on double wrapped access error")
 	}
-	if !InvalidRequest(wrappedErr) {
-		t.Error("invalid InvalidRequest result on multiple wrapped inv. req. error")
+	if !IsTemporary(wrappedErr) {
+		t.Error("invalid IsTemporary result on multiple wrapped temporary error")
 	}
 }

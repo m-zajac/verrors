@@ -2,6 +2,7 @@ package verrors
 
 import "context"
 
+// WithValue creates new error, which holds arbitrary value for given key.
 func WithValue(e error, k interface{}, v interface{}) error {
 	if err, ok := e.(ctxError); ok {
 		return err.withValue(k, v)
@@ -13,6 +14,7 @@ func WithValue(e error, k interface{}, v interface{}) error {
 	}
 }
 
+// Value returns value stored in error at given key. If no value is stored, returns nil.
 func Value(e error, k interface{}) interface{} {
 	for {
 		if err, ok := e.(ctxError); ok {
