@@ -49,3 +49,5 @@ if IsTemporary(err) {
     panic("I'll end here.")
 }
 ```
+
+[Read the package documentation for more information](https://godoc.org/github.com/m-zajac/verrors).
