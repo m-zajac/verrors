@@ -1,10 +1,10 @@
 # verrors [![Build Status](https://travis-ci.org/m-zajac/verrors.svg?branch=master)](https://travis-ci.org/m-zajac/verrors) [![Go Report Card](https://goreportcard.com/badge/github.com/m-zajac/verrors)](https://goreportcard.com/report/github.com/m-zajac/verrors) [![GoDoc](https://godoc.org/github.com/m-zajac/verrors?status.svg)](http://godoc.org/github.com/m-zajac/verrors)
 
-Package verrors provides simple helpers for creating errors, which can be checked for their behaviour.
+Package verrors provides simple helpers for creating errors, which can be checked for their "traits".
 
-Package exposes only 2 functions: "WithValue" and "Value", which helps creating error constructors and behaviour checks.
+Package exposes only 2 functions: "WithValue" and "Value", which helps creating error constructors and trait checks.
 
-This package is created as extension of github.com/pkg/errors, but pkg/errors is not required. You can wrap errors by errors.Wrap and behaviour checks will still work.
+This package is created as extension of github.com/pkg/errors, but pkg/errors is not required. You can wrap errors by errors.Wrap and trait checks will still work.
 
 Example:
 
