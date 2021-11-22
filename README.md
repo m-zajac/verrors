@@ -1,5 +1,13 @@
 # verrors [![Build Status](https://travis-ci.org/m-zajac/verrors.svg?branch=master)](https://travis-ci.org/m-zajac/verrors) [![Go Report Card](https://goreportcard.com/badge/github.com/m-zajac/verrors)](https://goreportcard.com/report/github.com/m-zajac/verrors) [![GoDoc](https://godoc.org/github.com/m-zajac/verrors?status.svg)](http://godoc.org/github.com/m-zajac/verrors)
 
+## Project archived!
+
+The package was a try to deal with errors before Go 1.13 was a thing. It doesn't make much sense now, so I'm closing the repository. 
+
+Still, looking back at it after five years, I think it was a nice try! :)
+
+## Description
+
 Package verrors provides simple helpers for creating errors, which can be checked for their "traits".
 
 Package exposes only 2 functions: "WithValue" and "Value", which helps creating error constructors and trait checks.
